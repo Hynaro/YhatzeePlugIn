@@ -24,11 +24,11 @@ nom = "Total de 6"
 interface = app.ILigne
 
 class = app.Ligne
-nom = "Brelan: total des 3 dès"
+nom = "Brelan: total des 5 dès"
 interface = app.ILigne
 
 class = app.Ligne
-nom = "Carré: total des 4 dès"
+nom = "Carré: total des 5 dès"
 interface = app.ILigne
 
 class = app.Ligne
