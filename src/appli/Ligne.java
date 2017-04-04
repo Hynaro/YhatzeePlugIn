@@ -1,4 +1,4 @@
-package tiers;
+package appli;
 
 public class Ligne {
 
