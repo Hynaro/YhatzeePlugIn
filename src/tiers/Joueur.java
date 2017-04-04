@@ -1,3 +1,4 @@
+package tiers;
 
 public class Joueur {
 	
