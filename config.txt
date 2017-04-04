@@ -51,14 +51,12 @@ class = app.Ligne
 nom = "Chance"
 interface = app.ILigne
 
-
-***********************
 class = tiers.JetDeDes
 nom = "Jeter les dès"
 interface = app.IJetDeDes
 
 class = tiers.Evaluateur
-nom = "Evaluation du score effectué"
+nom = "Evaluation du score"
 interface = app.IEvaluateur
 
 

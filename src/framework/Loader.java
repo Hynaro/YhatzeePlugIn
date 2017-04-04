@@ -1,5 +1,7 @@
 package framework;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Properties;
@@ -7,7 +9,7 @@ import java.util.Properties;
 public class Loader {
 	
 	
-	Object loadBean() throws Exception, Exception{
+/*	Object loadBean() throws Exception, Exception{
 		Properties p = new Properties();
 		p.load(new FileReader("config.txt"));
 		// charger la classe
@@ -16,7 +18,7 @@ public class Loader {
 		//creer instance
 		Object ob = cl.newInstance();
 
-		//pour chaque clé appeler setter
+		//pour chaque clï¿½ appeler setter
 		for (Object key : p.keySet()){
 			if(!key.equals("class")){
 				Method setter  = cl.getMethod("set" + key,String.class);
@@ -31,17 +33,25 @@ public class Loader {
 			p.load(new FileReader("config.txt"));
 			// charger la classe
 			Class<?> cl = Class.forName((String) p.get("Class"));
-			//Vérifier si la classe retournée est conforme à la contrainte
+			//Vï¿½rifier si la classe retournï¿½e est conforme ï¿½ la contrainte
 			try {contrainte.isAssignableFrom(cl);}
 					catch (Exception e){
-						System.out.println("ça marche pas");
+						System.out.println("ï¿½a marche pas");
 					}
 			//creer instance
 			Object ob = cl.newInstance();
 			return ob;
-			}
+			}*/
 		
-		public List<IDescription> GetDescForPlugin(){
+		public Loader() {
+		// TODO Auto-generated constructor stub
+	}
+
+		public List<IDescription> GetDescForPlugin() throws IOException{
+			
+			Properties p = new Properties();
+			p.load(new FileReader("config.txt"));
+			System.out.println(p.toString() + " " + p.size());
 			return null;
 		}
 			

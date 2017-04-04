@@ -7,6 +7,8 @@ public class Run {
 	static IAfficheur aff;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		aff = (IAfficheur) Loader.getPlugin(IAfficheur.class);
+		//aff = (IAfficheur) Loader.getPlugin(IAfficheur.class);
+		l = new Loader();
+		l.GetDescForPlugin();
 	}
 }
