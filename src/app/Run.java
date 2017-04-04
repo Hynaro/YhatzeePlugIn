@@ -1,6 +1,6 @@
-package appli;
+package app;
 
-import plateforme.Loader;
+import framework.Loader;
 
 public class Run {
 	static Loader l;

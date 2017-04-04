@@ -1,4 +1,4 @@
-package plateforme;
+package framework;
 
 import java.util.Map;
 

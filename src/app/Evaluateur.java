@@ -1,4 +1,4 @@
-package appli;
+package app;
 
 public interface Evaluateur {
 

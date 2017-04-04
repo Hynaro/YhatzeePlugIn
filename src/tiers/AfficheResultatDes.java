@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import appli.IAfficheur;
+import app.IAfficheur;
 
 @SuppressWarnings("serial")
 public class AfficheResultatDes extends JFrame implements IAfficheur, ActionListener {
