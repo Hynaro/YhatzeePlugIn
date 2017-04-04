@@ -1,19 +1,21 @@
 package app;
 
-public class Ligne {
+public class Ligne implements ILigne {
 
 	String nom;
 	int score;
+	boolean coche;
 	
-	public Ligne() {
-
-	}
-
 	public Ligne(String nom, int score) {
 		this.nom = nom;
 		this.score = score;
+		this.coche=false;
 	}
 
+	public Ligne() {
+
+	}
+	
 	public String getNom() {
 		return nom;
 	}
@@ -30,6 +32,15 @@ public class Ligne {
 		this.score = score;
 	}
 	
+	public boolean isCoche() {
+		return coche;
+	}
+
+	public void setCoche(boolean coche) {
+		this.coche = coche;
+	}
+	
+	@Override
 	public int calcul(){
 		return 0;
 	}
