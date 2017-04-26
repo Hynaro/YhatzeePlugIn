@@ -1,59 +1,53 @@
 package framework;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class Loader {
+	public static ArrayList<IDescription> ListeDescriptionsPlugins;
 	
-	
-/*	Object loadBean() throws Exception, Exception{
-		Properties p = new Properties();
-		p.load(new FileReader("config.txt"));
-		// charger la classe
-		Class<?> cl = Class.forName((String) p.get("Class"));
-
-		//creer instance
-		Object ob = cl.newInstance();
-
-		//pour chaque cl� appeler setter
-		for (Object key : p.keySet()){
-			if(!key.equals("class")){
-				Method setter  = cl.getMethod("set" + key,String.class);
-				setter.invoke(ob,p.get(key));
-			}
-		}
-		return ob;
-	}
-	
-		public static Object getPlugin(Class<?> contrainte) throws Exception, Exception{
-			Properties p = new Properties();
-			p.load(new FileReader("config.txt"));
-			// charger la classe
-			Class<?> cl = Class.forName((String) p.get("Class"));
-			//V�rifier si la classe retourn�e est conforme � la contrainte
-			try {contrainte.isAssignableFrom(cl);}
-					catch (Exception e){
-						System.out.println("�a marche pas");
-					}
-			//creer instance
+		public Loader() {}
+		
+		public Object getPlugin(IDescription desc) throws Exception, Exception{
+			System.out.println(desc.getClassName());
+			Class<?> cl = Class.forName((String) desc.getClassName());
 			Object ob = cl.newInstance();
 			return ob;
-			}*/
+			}
 		
-		public Loader() {
-		// TODO Auto-generated constructor stub
-	}
-
-		public List<IDescription> GetDescForPlugin() throws IOException{
+		public ArrayList<IDescription> GetDescFor(Class<?> Contrainte) throws IOException{
+			ArrayList<IDescription> listeRetour = new ArrayList<IDescription>();
 			
-			Properties p = new Properties();
-			p.load(new FileReader("config.txt"));
-			System.out.println(p.toString() + " " + p.size());
-			return null;
+			
+			return listeRetour;
+			
 		}
-			
+		
+		public ArrayList<IDescription> GetDescriptions() throws IOException{
+			Properties p = new Properties();
+			ArrayList<IDescription> listeRetour = new ArrayList<IDescription>();
+			File repo;
+			Description desc = new Description();
+			File[] fileFound;
+			repo = new File(System.getProperty("user.dir"));
+			fileFound = repo.listFiles();
+			for (File fichier : fileFound) {
+				if (fichier.getName().contains("plugin_")){
+					p.load(new FileReader(fichier));
+					desc.setClassName(p.getProperty("class"));
+					desc.setConstraint(p.getProperty("interface"));
+					desc.setName(p.getProperty("nom"));
+					p.load(new FileReader(fichier));
+					listeRetour.add(desc);
+				}
+		    }
+			ListeDescriptionsPlugins = listeRetour;
+			return listeRetour;
+		}	
 }
 

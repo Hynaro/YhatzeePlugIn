@@ -2,13 +2,17 @@ package app;
 
 import framework.Loader;
 
-public class Run {
-	static Loader l;
-	static IAfficheur aff;
+import java.util.ArrayList;
+
+import framework.IDescription;
+
+public class Run {	
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		//aff = (IAfficheur) Loader.getPlugin(IAfficheur.class);
+		Loader l;
+		IAfficheur aff;
+		ArrayList<IDescription> descriptions;
 		l = new Loader();
-		l.GetDescForPlugin();
+		descriptions = l.GetDescriptions();
+		aff = (IAfficheur) l.getPlugin(descriptions.get(0));
 	}
 }

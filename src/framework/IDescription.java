@@ -1,16 +1,13 @@
 package framework;
 
-import java.util.Map;
 
 public interface IDescription {
+
 	
-	
-	Map<String, String> getProperties();
-	
-	String getName();
-	
-	String getText();
-	
-	
-	
+	public String getClassName();
+	public void setClassName(String className);
+	public String getConstraint();
+	public void setConstraint(String constraint);
+	public String getName();
+	public void setName(String name);
 }
