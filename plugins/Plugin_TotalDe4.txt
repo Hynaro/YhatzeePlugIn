@@ -1,0 +1,3 @@
+class = app.Ligne
+nom = "Total de 4"
+interface = app.ILigne

@@ -1,5 +1,0 @@
-class = app.Ligne
-nom = "Total de 1"
-interface = app.ILigne
-
-

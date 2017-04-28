@@ -1,0 +1,3 @@
+class = tiers.Evaluateur
+nom = "Evaluation du score"
+interface = app.IEvaluateur

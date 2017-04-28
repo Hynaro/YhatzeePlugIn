@@ -1,3 +1,0 @@
-class = app.Ligne
-nom = "Chance"
-interface = app.ILigne

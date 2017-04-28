@@ -1,3 +1,0 @@
-class = app.Ligne
-nom = "Petite Suite"
-interface = app.ILigne

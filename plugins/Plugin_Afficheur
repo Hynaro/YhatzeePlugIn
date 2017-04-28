@@ -1,0 +1,3 @@
+class = tiers.AfficheResultatDes
+nom = "Interface graphique"
+interface = app.IAfficheur

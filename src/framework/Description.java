@@ -5,43 +5,50 @@ import java.util.Map;
 
 public class Description implements IDescription{
 
-	private String ClassName;
-	private String Constraint;
+	private String className;
+	private String constraint;
 	private HashMap<String,String> properties;
 	private String name;
 	
-	public String getClassName() {
-		return ClassName;
-	}
-	public void setClassName(String className) {
-		ClassName = className;
-	}
-	public String getConstraint() {
-		return Constraint;
-	}
-	public void setConstraint(String constraint) {
-		Constraint = constraint;
-	}
-	public HashMap<String, String> getProperties() {
-		return properties;
-	}
-	public void setProperties(HashMap<String, String> properties) {
-		this.properties = properties;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public Description(String className, String constraint, String name) {
-		ClassName = className;
-		Constraint = constraint;
+		this.className = className;
+		this.constraint = constraint;
 		this.name = name;
 		this.properties = new HashMap<String, String>();
 	}
-	public Description() {
-		super();
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getConstraint() {
+		return constraint;
+	}
+
+	public void setConstraint(String constraint) {
+		this.constraint = constraint;
+	}
+
+	public HashMap<String, String> getProperties() {
+		return properties;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Description [className=" + className + ", constraint=" + constraint + ", properties=" + properties
+				+ ", name=" + name + "]";
 	}
 	
 	
