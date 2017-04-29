@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import app.*;
 import framework.IDescription;
 
 public class Loader {
@@ -36,9 +37,14 @@ public class Loader {
 					
 					String className = p.getProperty("class");
 					String constraint = p.getProperty("interface");
-					String name = p.getProperty("nom");
-					Description description = new Description(className, constraint, name);
-					
+					Description description = new Description(className, constraint);
+					// load all the other properties found in the file, into the Description hashmap of tproperties
+					for(Object key : p.keySet()){
+						if(!key.equals("class") && !key.equals("interface")){
+							description.addProperty(key+"", p.getProperty(key+""));
+						}
+					}
+//					System.out.println(" description " + description.toString());
 					listeRetour.add(description);
 				}
 		    }
@@ -48,6 +54,7 @@ public class Loader {
 		public ArrayList<IDescription> getDescForPlugin(Class<?> constraint) throws IOException{
 			ArrayList<IDescription> inputList = this.loadDescriptions();
 			ArrayList<IDescription> outputList = new ArrayList<IDescription>();
+//			System.out.println("inputList : " + inputList.size());
 //			System.out.println("constraint : " + constraint.getName());
 			for(IDescription description : inputList){
 //				System.out.println("description.getConstraint() : " + description.getConstraint());
@@ -55,7 +62,6 @@ public class Loader {
 					outputList.add(description);
 				}
 			}
-//			System.out.println("inputList : " + inputList.size());
 //			System.out.println("outputList : " + outputList.size());
 			return outputList;
 			
@@ -71,6 +77,14 @@ public class Loader {
 			Class<?> cl = Class.forName(desc.getClassName());
 			// create an instance from the class
 			Object o = cl.newInstance();
+			// configure the instance
+			if(IAfficheur.class.isAssignableFrom(cl)){
+				Method setTitre = cl.getMethod("setTitre", String.class);
+				setTitre.invoke(o, desc.getProperty("titre"));
+			} else if(IJetDeDes.class.isAssignableFrom(cl)) {
+				
+			}
+//			
 			return o;
 		}
 }

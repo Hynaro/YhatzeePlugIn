@@ -1,3 +1,0 @@
-class = tiers.JetDeDes
-nom = "Jeter les dès"
-interface = app.IJetDeDes

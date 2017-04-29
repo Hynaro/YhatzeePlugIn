@@ -1,12 +1,15 @@
 package app;
 
 import framework.Loader;
-
-//import java.util.ArrayList;
-
 import framework.IDescription;
 
+import java.util.ArrayList;
+
 public class Jeu {	
+	
+	private int[] dicesResult;
+	private ArrayList<ILigne> lines;
+	
 	public static void main(String[] args) throws Exception {
 		Loader l = Loader.getInstance();
 //		ArrayList<IDescription> descriptions = l.loadDescriptions();
