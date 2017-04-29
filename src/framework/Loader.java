@@ -11,9 +11,15 @@ import java.util.Properties;
 import framework.IDescription;
 
 public class Loader {
+	
+		private static Loader instance = new Loader();
 		private ArrayList<IDescription> listDescriptionPlugin;
 	
-		public Loader() {}
+		private Loader() {}
+		
+		public static Loader getInstance(){
+			return instance;
+		}
 		
 		// read all the plugin descriptions that are in the corresponding files, and returns an ArrayList of Description objects
 		public ArrayList<IDescription> loadDescriptions() throws IOException{
