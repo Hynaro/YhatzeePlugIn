@@ -3,19 +3,83 @@ package app;
 import framework.Loader;
 import framework.IDescription;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Jeu {	
 	
-	private int[] dicesResult;
-	private ArrayList<ILigne> lines;
+	private static Jeu instance = new Jeu();
+	private int[] resultatDes;
+	private ArrayList<ILigne> lignes;
+	private IAfficheur afficheur;
 	
-	public static void main(String[] args) throws Exception {
+	public static Jeu getInstance(){
+		return instance;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			Jeu.getInstance().startGame();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void startGame() throws Exception{
 		Loader l = Loader.getInstance();
 //		ArrayList<IDescription> descriptions = l.loadDescriptions();
 		
 		// Load the Afficheur
 		IDescription descAfficheur = l.getDescForPlugin(IAfficheur.class).get(0);
-		IAfficheur afficheur = (IAfficheur) l.getPluginForDesc(descAfficheur);
+		this.afficheur = (IAfficheur) l.getPluginForDesc(descAfficheur);
 	}
+	
+	public void throwDicesButtonPressed(){
+		Loader l = Loader.getInstance();
+		System.out.println("Button pressed");
+		// Load the JetDeDes
+		try {
+			IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
+			IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
+//			System.out.println("Jet de des : " + jetdeDes.jeter()[0]);
+			this.resultatDes = jetdeDes.jeter();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		this.afficheur.setAffichageResultatDes(this.resultatDes);
+	}
+
+	public int[] getResultatDes() {
+		return resultatDes;
+	}
+
+	public void setResultatDes(int[] resultatDes) {
+		this.resultatDes = resultatDes;
+	}
+
+	public ArrayList<ILigne> getLignes() {
+		return lignes;
+	}
+
+	public void setLignes(ArrayList<ILigne> lignes) {
+		this.lignes = lignes;
+	}
+
+	public IAfficheur getAfficheur() {
+		return afficheur;
+	}
+
+	public void setAfficheur(IAfficheur afficheur) {
+		this.afficheur = afficheur;
+	}
+	
+	
+	
 }

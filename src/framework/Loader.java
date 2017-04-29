@@ -82,7 +82,8 @@ public class Loader {
 				Method setTitre = cl.getMethod("setTitre", String.class);
 				setTitre.invoke(o, desc.getProperty("titre"));
 			} else if(IJetDeDes.class.isAssignableFrom(cl)) {
-				
+				Method setNombreDeDes = cl.getMethod("setNombreDeDes", int.class);
+				setNombreDeDes.invoke(o, Integer.parseInt(desc.getProperty("nombreDeDes")));
 			}
 //			
 			return o;

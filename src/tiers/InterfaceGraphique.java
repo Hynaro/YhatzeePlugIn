@@ -15,40 +15,29 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import app.IAfficheur;
+import app.Jeu;
 
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame implements IAfficheur, ActionListener {
-	private JFrame frame;
-	ArrayList<Integer> dices;
+	
+	private ArrayList<Integer> dices;
 	private String titre;
-	int i; 
-	Random rand = new Random();
-	JButton b1 = new JButton();   
+	private JTextArea resultDicesTextArea;
+	private JTextArea linesTextArea;
+	private JButton throwDicesButton;
 	
 	public InterfaceGraphique() {
-//		dices = new ArrayList<>();
-//		this.setTitle("Yhatzee !!!");
-//	    this.setSize(600, 600);
-//	    this.setLocationRelativeTo(null);               
-//	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	    this.setVisible(true);
-//	    b1.setSize(200, 100);
-//	    b1.setPreferredSize(new Dimension(200, 100));
-//	    b1.setVisible(true);
-//	    b1.setText("Lancer les d�s");
-//	    this.add(b1,BorderLayout.CENTER);
-//	    b1.addActionListener(this);
-		
-		this.frame = new JFrame();
-		this.frame.setSize(600, 600);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLocationRelativeTo(null);
-		this.frame.setLayout(new BorderLayout());
+
+		// editing the frame
+		this.setSize(600, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setLayout(new BorderLayout());
 		
 		// create the elements
-		JTextArea resultDicesTextArea = new JTextArea("result");
-		JTextArea linesTextArea = new JTextArea("lines");
-		JButton throwDicesButton = new JButton("Lancer");
+		this.resultDicesTextArea = new JTextArea("result");
+		this.linesTextArea = new JTextArea("lines");
+		this.throwDicesButton = new JButton("Lancer");
 		
 		// edit the result text area
 		resultDicesTextArea.setEditable(false);
@@ -56,39 +45,33 @@ public class InterfaceGraphique extends JFrame implements IAfficheur, ActionList
 		// edit the lines text area
 		linesTextArea.setEditable(false);
 		
-		// add the elements to the frame
-		this.frame.getContentPane().add(resultDicesTextArea, BorderLayout.CENTER);
-		this.frame.getContentPane().add(linesTextArea, BorderLayout.EAST);
-		this.frame.getContentPane().add(throwDicesButton, BorderLayout.SOUTH);
+		//edit the throw dices button
+		throwDicesButton.addActionListener(this);
 		
-		this.frame.setVisible(true);	
+		// add the elements to the frame
+		this.getContentPane().add(this.resultDicesTextArea, BorderLayout.CENTER);
+		this.getContentPane().add(this.linesTextArea, BorderLayout.EAST);
+		this.getContentPane().add(this.throwDicesButton, BorderLayout.SOUTH);
+		
+		this.setVisible(true);	
 	}
 	
 	public void setTitre(String titre){
-		System.out.println("titre : " + titre);
 		this.titre = titre;
-		this.frame.setTitle(titre);
+		this.setTitle(titre);
 	}
 
-
-	@Override
-	public void affiche(String s) {
-	
-		for (i = 0 ; i < 5 ; i++){
-			dices.add(roll());
+	public void setAffichageResultatDes(int[] resultats){
+		String affichage = "";
+		for(int i : resultats){
+			affichage += i + "  ";
 		}
-		System.out.println(dices);
+		this.resultDicesTextArea.setText(affichage);
 	}
-
-	
-	public int roll(){
-		
-		return rand.nextInt(6) + 1;
-	}
-
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.affiche("test");		
+	public void actionPerformed(ActionEvent e){
+//		this.affiche("test");	
+		Jeu.getInstance().throwDicesButtonPressed();
 	}
 }

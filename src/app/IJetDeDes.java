@@ -1,6 +1,7 @@
 package app;
 
 public interface IJetDeDes {
-
-	void jeter();
+	
+	public void setNombreDeDes(int nombreDeDes); 
+	int[] jeter();
 }

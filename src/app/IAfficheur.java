@@ -1,5 +1,7 @@
 package app;
 
 public interface IAfficheur {
-	void affiche(String s);
+	
+	void setAffichageResultatDes(int[] resultats);
+	
 }
