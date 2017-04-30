@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +24,7 @@ public class InterfaceGraphique extends JFrame implements IAfficheur, ActionList
 	private ArrayList<Integer> dices;
 	private String titre;
 	private JTextArea resultDicesTextArea;
-	private JTextArea linesTextArea;
+	private JPanel linesPanel;
 	private JButton throwDicesButton;
 	
 	public InterfaceGraphique() {
@@ -36,21 +37,22 @@ public class InterfaceGraphique extends JFrame implements IAfficheur, ActionList
 		
 		// create the elements
 		this.resultDicesTextArea = new JTextArea("result");
-		this.linesTextArea = new JTextArea("lines");
+		this.linesPanel = new JPanel();
 		this.throwDicesButton = new JButton("Lancer");
 		
 		// edit the result text area
 		resultDicesTextArea.setEditable(false);
 		
-		// edit the lines text area
-		linesTextArea.setEditable(false);
+		// edit the lines panel
+		this.linesPanel.setLayout(new BoxLayout(this.linesPanel, BoxLayout.PAGE_AXIS));
 		
 		//edit the throw dices button
 		throwDicesButton.addActionListener(this);
 		
+		
 		// add the elements to the frame
 		this.getContentPane().add(this.resultDicesTextArea, BorderLayout.CENTER);
-		this.getContentPane().add(this.linesTextArea, BorderLayout.EAST);
+		this.getContentPane().add(this.linesPanel, BorderLayout.EAST);
 		this.getContentPane().add(this.throwDicesButton, BorderLayout.SOUTH);
 		
 		this.setVisible(true);	
@@ -61,12 +63,18 @@ public class InterfaceGraphique extends JFrame implements IAfficheur, ActionList
 		this.setTitle(titre);
 	}
 
+	// display the new result of the roll of dice
 	public void setAffichageResultatDes(int[] resultats){
 		String affichage = "";
 		for(int i : resultats){
 			affichage += i + "  ";
 		}
 		this.resultDicesTextArea.setText(affichage);
+	}
+	
+	// add a line to the lines panel
+	public void addLine(){
+		
 	}
 
 	@Override
