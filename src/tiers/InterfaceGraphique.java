@@ -73,13 +73,13 @@ public class InterfaceGraphique extends JFrame implements IAfficheur, ActionList
 	}
 	
 	// add a line to the lines panel
-	public void addLine(){
-		
+	public void addLine(String nom){
+		this.linesPanel.add(new JButton(nom));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e){
 //		this.affiche("test");	
-		Jeu.getInstance().throwDicesButtonPressed();
+		Jeu.getInstance().rollDicesButtonPressed();
 	}
 }

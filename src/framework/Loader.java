@@ -84,6 +84,9 @@ public class Loader {
 			} else if(IJetDeDes.class.isAssignableFrom(cl)) {
 				Method setNombreDeDes = cl.getMethod("setNombreDeDes", int.class);
 				setNombreDeDes.invoke(o, Integer.parseInt(desc.getProperty("nombreDeDes")));
+			} else if(ILigne.class.isAssignableFrom(cl)){
+				Method setNom = cl.getMethod("setNom", String.class);
+				setNom.invoke(o, desc.getProperty("nom"));
 			}
 //			
 			return o;

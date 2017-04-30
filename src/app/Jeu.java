@@ -13,6 +13,12 @@ public class Jeu {
 	private ArrayList<ILigne> lignes;
 	private IAfficheur afficheur;
 	
+	
+	
+	public Jeu() {
+		this.lignes = new ArrayList<ILigne>();
+	}
+
 	public static Jeu getInstance(){
 		return instance;
 	}
@@ -27,15 +33,24 @@ public class Jeu {
 	}
 	
 	public void startGame() throws Exception{
-		Loader l = Loader.getInstance();
+		Loader loader = Loader.getInstance();
 //		ArrayList<IDescription> descriptions = l.loadDescriptions();
 		
 		// Load the Afficheur
-		IDescription descAfficheur = l.getDescForPlugin(IAfficheur.class).get(0);
-		this.afficheur = (IAfficheur) l.getPluginForDesc(descAfficheur);
+		IDescription descAfficheur = loader.getDescForPlugin(IAfficheur.class).get(0);
+		this.afficheur = (IAfficheur) loader.getPluginForDesc(descAfficheur);
+		
+		//Load the Lines
+		ArrayList<IDescription> descLignes = loader.getDescForPlugin(ILigne.class);
+		for(IDescription descLigne : descLignes){
+			ILigne ligne = (ILigne) loader.getPluginForDesc(descLigne);
+			this.lignes.add(ligne);
+			this.afficheur.addLine(ligne.getNom());
+		}
+		
 	}
 	
-	public void throwDicesButtonPressed(){
+	public void rollDicesButtonPressed(){
 		Loader l = Loader.getInstance();
 		System.out.println("Button pressed");
 		// Load the JetDeDes

@@ -44,5 +44,10 @@ public class Ligne implements ILigne {
 	public int calcul(){
 		return 0;
 	}
+
+	@Override
+	public String toString() {
+		return "Ligne [nom=" + nom + ", score=" + score + ", coche=" + coche + "]";
+	}
 	
 }

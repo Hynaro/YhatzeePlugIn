@@ -1,0 +1,3 @@
+class = tiers.JetDeDes
+interface = app.IJetDeDes
+nombreDeDes = 5
