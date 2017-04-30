@@ -3,5 +3,6 @@ package app;
 public interface IAfficheur {
 	
 	void setAffichageResultatDes(int[] resultats);
-	public void addLine(String nom);
+	public void setAffichageScore(int score);
+	public void addLine(ILigne ligne);
 }

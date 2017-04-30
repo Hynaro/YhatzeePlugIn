@@ -12,11 +12,11 @@ public class Jeu {
 	private int[] resultatDes;
 	private ArrayList<ILigne> lignes;
 	private IAfficheur afficheur;
-	
-	
+	private int score;
 	
 	public Jeu() {
 		this.lignes = new ArrayList<ILigne>();
+		this.score = 0;
 	}
 
 	public static Jeu getInstance(){
@@ -34,7 +34,6 @@ public class Jeu {
 	
 	public void startGame() throws Exception{
 		Loader loader = Loader.getInstance();
-//		ArrayList<IDescription> descriptions = l.loadDescriptions();
 		
 		// Load the Afficheur
 		IDescription descAfficheur = loader.getDescForPlugin(IAfficheur.class).get(0);
@@ -45,14 +44,13 @@ public class Jeu {
 		for(IDescription descLigne : descLignes){
 			ILigne ligne = (ILigne) loader.getPluginForDesc(descLigne);
 			this.lignes.add(ligne);
-			this.afficheur.addLine(ligne.getNom());
+			this.afficheur.addLine(ligne);
 		}
-		
 	}
 	
 	public void rollDicesButtonPressed(){
 		Loader l = Loader.getInstance();
-		System.out.println("Button pressed");
+		System.out.println("Button to roll dices pressed");
 		// Load the JetDeDes
 		try {
 			IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
@@ -69,6 +67,25 @@ public class Jeu {
 		}	
 		
 		this.afficheur.setAffichageResultatDes(this.resultatDes);
+	}
+	
+	public void lineButtonPressed(String type){
+		Loader l = Loader.getInstance();
+		System.out.println("Button to roll dices pressed");
+		// Load the Evaluateur
+		try {
+			IDescription descEvaluateur = l.getDescForPlugin(IEvaluateur.class).get(0);
+			IEvaluateur evaluateur = (IEvaluateur) l.getPluginForDesc(descEvaluateur);
+			this.score += evaluateur.calculate(type, this.resultatDes);
+			this.afficheur.setAffichageScore(this.score);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int[] getResultatDes() {
@@ -94,7 +111,12 @@ public class Jeu {
 	public void setAfficheur(IAfficheur afficheur) {
 		this.afficheur = afficheur;
 	}
-	
-	
-	
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 }

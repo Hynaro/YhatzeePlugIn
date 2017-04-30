@@ -1,3 +1,4 @@
 class = app.Ligne
 interface = app.ILigne
 nom = Total de 1
+type = total 1

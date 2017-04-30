@@ -87,6 +87,8 @@ public class Loader {
 			} else if(ILigne.class.isAssignableFrom(cl)){
 				Method setNom = cl.getMethod("setNom", String.class);
 				setNom.invoke(o, desc.getProperty("nom"));
+				Method setType = cl.getMethod("setType", String.class);
+				setType.invoke(o, desc.getProperty("type"));
 			}
 //			
 			return o;

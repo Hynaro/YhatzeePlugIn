@@ -3,19 +3,27 @@ package app;
 public class Ligne implements ILigne {
 
 	String nom;
+	String type;
 	int score;
 	boolean coche;
 	
-	public Ligne(String nom, int score) {
+	public Ligne(String nom, int score, String type) {
 		this.nom = nom;
-		this.score = score;
-		this.coche=false;
+		this.type = type;
+		this.score = 0;
+		this.coche = false;
 	}
 
-	public Ligne() {
+	public Ligne() {}
 
+	public String getType() {
+		return type;
 	}
-	
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getNom() {
 		return nom;
 	}
@@ -39,15 +47,10 @@ public class Ligne implements ILigne {
 	public void setCoche(boolean coche) {
 		this.coche = coche;
 	}
-	
-	@Override
-	public int calcul(){
-		return 0;
-	}
 
 	@Override
 	public String toString() {
-		return "Ligne [nom=" + nom + ", score=" + score + ", coche=" + coche + "]";
+		return "Ligne [nom=" + nom + ", type=" + type + ", score=" + score + ", coche=" + coche + "]";
 	}
 	
 }

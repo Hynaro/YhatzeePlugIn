@@ -1,0 +1,2 @@
+class = tiers.EvaluateurDefault
+interface = app.IEvaluateur

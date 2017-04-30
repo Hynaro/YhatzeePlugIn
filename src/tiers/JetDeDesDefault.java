@@ -4,7 +4,7 @@ import java.util.Random;
 
 import app.IJetDeDes;
 
-public class JetDeDes implements IJetDeDes{
+public class JetDeDesDefault implements IJetDeDes{
 	
 	private int nombreDeDes;
 	private int nombreDeFaces;
