@@ -23,11 +23,13 @@ import app.Jeu;
 @SuppressWarnings("serial")
 public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	
-	private ArrayList<Integer> dices;
 	private String titre;
+	
+	private JPanel linesPanel;
+	private JPanel displayPanel;
 	private JTextArea resultDicesTextArea;
 	private JTextArea scoreTextArea;
-	private JPanel linesPanel;
+	private JTextArea messageTextArea;
 	private JButton throwDicesButton;
 	
 	public InterfaceGraphiqueDefault() {
@@ -39,13 +41,16 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		this.setLayout(new BorderLayout());
 		
 		// create the elements
+		this.linesPanel = new JPanel();
+		this.displayPanel = new JPanel();
 		this.resultDicesTextArea = new JTextArea("[]");
 		this.scoreTextArea = new JTextArea("Score : " + Jeu.getInstance().getScore());
-		this.linesPanel = new JPanel();
+		this.messageTextArea = new JTextArea("Lancez les des.");
+		this.resultDicesTextArea = new JTextArea();
 		this.throwDicesButton = new JButton("Lancer");
 		
-		// edit the result text area
-		resultDicesTextArea.setEditable(false);
+		// edit the dislplay panel
+		this.linesPanel.setLayout(new BoxLayout(this.linesPanel, BoxLayout.PAGE_AXIS));
 		
 		// edit the lines panel
 		this.linesPanel.setLayout(new BoxLayout(this.linesPanel, BoxLayout.PAGE_AXIS));
@@ -58,10 +63,12 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		};
 		throwDicesButton.addActionListener(rollDicesButtonListener);
 		
-		
+		// add the  elements to the display panel
+		this.displayPanel.add(this.resultDicesTextArea);
+		this.displayPanel.add(this.scoreTextArea);
+		this.displayPanel.add(this.messageTextArea);
 		// add the elements to the frame
-		this.getContentPane().add(this.resultDicesTextArea, BorderLayout.CENTER);
-		this.getContentPane().add(this.scoreTextArea, BorderLayout.NORTH);
+		this.getContentPane().add(this.displayPanel, BorderLayout.CENTER);
 		this.getContentPane().add(this.linesPanel, BorderLayout.EAST);
 		this.getContentPane().add(this.throwDicesButton, BorderLayout.SOUTH);
 		
@@ -83,7 +90,11 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	}
 	
 	public void setAffichageScore(int score){
-		this.scoreTextArea.setText("Score : " + score);
+		this.scoreTextArea.setText("Votre score : " + score);
+	}
+	
+	public void setAffichageMessage(String message){
+		this.messageTextArea.setText(message);
 	}
 	
 	// add a line to the lines panel
@@ -91,7 +102,7 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		JButton button = new JButton(ligne.getNom());
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Jeu.getInstance().lineButtonPressed(ligne.getType());
+				Jeu.getInstance().lineButtonPressed(ligne);
 			}
 		});
 		this.linesPanel.add(button);

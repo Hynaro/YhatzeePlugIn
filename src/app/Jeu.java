@@ -10,13 +10,15 @@ public class Jeu {
 	
 	private static Jeu instance = new Jeu();
 	private int[] resultatDes;
+	private int score;
+	private boolean dejaJoue;
 	private ArrayList<ILigne> lignes;
 	private IAfficheur afficheur;
-	private int score;
 	
 	public Jeu() {
 		this.lignes = new ArrayList<ILigne>();
 		this.score = 0;
+		this.dejaJoue = true; // must be true to roll the dices a first time
 	}
 
 	public static Jeu getInstance(){
@@ -49,43 +51,95 @@ public class Jeu {
 	}
 	
 	public void rollDicesButtonPressed(){
-		Loader l = Loader.getInstance();
-		System.out.println("Button to roll dices pressed");
-		// Load the JetDeDes
-		try {
-			IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
-			IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
-//			System.out.println("Jet de des : " + jetdeDes.jeter()[0]);
-			this.resultatDes = jetdeDes.jeter();
+		if(this.dejaJoue == true){			
+			// record the player has to play
+			this.dejaJoue = false;
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		
-		this.afficheur.setAffichageResultatDes(this.resultatDes);
+			Loader l = Loader.getInstance();
+			System.out.println("The player roll the dices.");
+			// Load the JetDeDes
+			try {
+				IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
+				IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
+//			System.out.println("Jet de des : " + jetdeDes.jeter()[0]);
+				this.resultatDes = jetdeDes.jeter();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			// updating the view
+			this.afficheur.setAffichageResultatDes(this.resultatDes);
+		} else {
+			System.out.println("ERROR : the player hasn't played yet.");
+			// updating the view
+			this.afficheur.setAffichageMessage("Vous n'avez pas encore joue ce tour. Cochez une ligne.");
+		}
 	}
 	
-	public void lineButtonPressed(String type){
-		Loader l = Loader.getInstance();
-		System.out.println("Button to roll dices pressed");
-		// Load the Evaluateur
-		try {
-			IDescription descEvaluateur = l.getDescForPlugin(IEvaluateur.class).get(0);
-			IEvaluateur evaluateur = (IEvaluateur) l.getPluginForDesc(descEvaluateur);
-			this.score += evaluateur.calculate(type, this.resultatDes);
-			this.afficheur.setAffichageScore(this.score);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void lineButtonPressed(ILigne ligne){
+		// check that the player hasn't already played the round
+		if(dejaJoue == false){			
+			// check if the Ligne is not already checked
+			if(this.isLigneCoche(ligne, this.lignes) == false){
+				System.out.println("The player choose the line : " + ligne.getType());
+				
+				Loader l = Loader.getInstance();			
+				System.out.println("Button to roll dices pressed");
+				// Load the Evaluateur
+				try {
+					// calculating the score
+					IDescription descEvaluateur = l.getDescForPlugin(IEvaluateur.class).get(0);
+					IEvaluateur evaluateur = (IEvaluateur) l.getPluginForDesc(descEvaluateur);
+					int points = evaluateur.calculate(ligne.getType(), this.resultatDes);
+					this.score += points;
+					// checking the Ligne
+					this.cocheLigne(ligne, true);
+					// record the player played this round
+					this.dejaJoue = true;
+					// updating the view
+					this.afficheur.setAffichageScore(this.score);
+					this.afficheur.setAffichageMessage("Vous avez marque : " + points + " points.");
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else{
+				System.out.println("ERROR : the line has already been used.");
+				// updating the view
+				this.afficheur.setAffichageMessage("La ligne a deja ete selectionnee.");
+			}
 		}
+		else{
+			System.out.println("ERROR : the player already played.");
+			// updating the view
+			this.afficheur.setAffichageMessage("Vous avez deja joue pour ce tour. Relancez les des.");			
+		}
+	}
+	
+	// Check if the specified ligne form the lignes array, is checked
+	public boolean isLigneCoche(ILigne ligne, ArrayList<ILigne> lignes){
+		for(ILigne l : lignes)
+			// the type is used to identify the Ligne
+			if(ligne.equals(l))
+				return ligne.isCoche();
+		// if not found
+		System.out.println("Ligne not found.");
+		return false;
+	}
+	
+	// Check or uncheck the Ligne from this.lignes
+	public void cocheLigne(ILigne ligne, boolean value){
+		int index = this.lignes.indexOf(ligne);
+		this.lignes.get(index).setCoche(value);
 	}
 
 	public int[] getResultatDes() {

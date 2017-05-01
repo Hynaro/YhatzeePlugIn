@@ -44,13 +44,19 @@ public class Ligne implements ILigne {
 		return coche;
 	}
 
-	public void setCoche(boolean coche) {
-		this.coche = coche;
+	public void setCoche(boolean value) {
+		this.coche = value;
 	}
 
 	@Override
 	public String toString() {
 		return "Ligne [nom=" + nom + ", type=" + type + ", score=" + score + ", coche=" + coche + "]";
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		ILigne ligne = (ILigne) obj;
+		return (this.getType() == ligne.getType());		
 	}
 	
 }
