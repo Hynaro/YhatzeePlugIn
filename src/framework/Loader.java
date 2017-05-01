@@ -17,14 +17,16 @@ public class Loader {
 		private static Loader instance = new Loader();
 		private ArrayList<IDescription> listDescriptionPlugin;
 	
-		private Loader() {}
+		private Loader() {
+			this.listDescriptionPlugin = new ArrayList<IDescription>();
+		}
 		
 		public static Loader getInstance(){
 			return instance;
 		}
 		
 		// read all the plugin descriptions that are in the corresponding files, and returns an ArrayList of Description objects
-		public ArrayList<IDescription> loadDescriptions() throws IOException{
+		public void loadDescriptions() throws IOException{
 			ArrayList<IDescription> listeRetour = new ArrayList<IDescription>();
 			// path to the plugins text files folder
 			File pluginFolder = new File(System.getProperty("user.dir") + File.separator + "plugins");
@@ -49,11 +51,16 @@ public class Loader {
 					listeRetour.add(description);
 				}
 		    }
-			return listeRetour;
+			
+			this.listDescriptionPlugin = listeRetour;
 		}	
 		
 		public ArrayList<IDescription> getDescForPlugin(Class<?> constraint) throws IOException{
-			ArrayList<IDescription> inputList = this.loadDescriptions();
+			// if the file has not been loaded yet
+			if(this.listDescriptionPlugin.size() == 0){
+				this.loadDescriptions();
+			}
+			ArrayList<IDescription> inputList = this.getListDescriptionPlugin();
 			ArrayList<IDescription> outputList = new ArrayList<IDescription>();
 //			System.out.println("inputList : " + inputList.size());
 //			System.out.println("constraint : " + constraint.getName());
@@ -94,5 +101,15 @@ public class Loader {
 //			
 			return o;
 		}
+
+		public ArrayList<IDescription> getListDescriptionPlugin() {
+			return listDescriptionPlugin;
+		}
+
+		public void setListDescriptionPlugin(ArrayList<IDescription> listDescriptionPlugin) {
+			this.listDescriptionPlugin = listDescriptionPlugin;
+		}
+		
+		
 }
 

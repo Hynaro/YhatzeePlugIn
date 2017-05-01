@@ -27,10 +27,13 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	
 	private JPanel linesPanel;
 	private JPanel displayPanel;
+	private JPanel actionsPanel;
 	private JTextArea resultDicesTextArea;
 	private JTextArea scoreTextArea;
 	private JTextArea messageTextArea;
 	private JButton throwDicesButton;
+	private JButton newGame;
+	private JButton addPlayer;
 	
 	public InterfaceGraphiqueDefault() {
 
@@ -43,17 +46,21 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		// create the elements
 		this.linesPanel = new JPanel();
 		this.displayPanel = new JPanel();
+		this.actionsPanel = new JPanel();
 		this.resultDicesTextArea = new JTextArea("[]");
 		this.scoreTextArea = new JTextArea("Score : " + Jeu.getInstance().getScore());
 		this.messageTextArea = new JTextArea("Lancez les des.");
 		this.resultDicesTextArea = new JTextArea();
-		this.throwDicesButton = new JButton("Lancer");
+		this.throwDicesButton = new JButton("Lancer les des");
+		this.newGame = new JButton("Nouvelle partie");
+		this.addPlayer = new JButton("Ajouter un joueur");
 		
-		// edit the dislplay panel
-		this.linesPanel.setLayout(new BoxLayout(this.linesPanel, BoxLayout.PAGE_AXIS));
-		
+		// edit the display panel
+		this.displayPanel.setLayout(new BoxLayout(this.displayPanel, BoxLayout.PAGE_AXIS));
 		// edit the lines panel
 		this.linesPanel.setLayout(new BoxLayout(this.linesPanel, BoxLayout.PAGE_AXIS));
+		//edit the actions panel
+		this.actionsPanel.setLayout(new FlowLayout());
 		
 		//edit the throw dices button
 		ActionListener rollDicesButtonListener = new ActionListener() {
@@ -61,16 +68,20 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 				Jeu.getInstance().rollDicesButtonPressed();
 			}
 		};
-		throwDicesButton.addActionListener(rollDicesButtonListener);
+		this.throwDicesButton.addActionListener(rollDicesButtonListener);
 		
 		// add the  elements to the display panel
 		this.displayPanel.add(this.resultDicesTextArea);
 		this.displayPanel.add(this.scoreTextArea);
 		this.displayPanel.add(this.messageTextArea);
+		// add the elements to the action panel
+		this.actionsPanel.add(this.throwDicesButton);
+		this.actionsPanel.add(this.newGame);
+		this.actionsPanel.add(this.addPlayer);
 		// add the elements to the frame
 		this.getContentPane().add(this.displayPanel, BorderLayout.CENTER);
 		this.getContentPane().add(this.linesPanel, BorderLayout.EAST);
-		this.getContentPane().add(this.throwDicesButton, BorderLayout.SOUTH);
+		this.getContentPane().add(this.actionsPanel, BorderLayout.SOUTH);
 		
 		this.setVisible(true);	
 	}
