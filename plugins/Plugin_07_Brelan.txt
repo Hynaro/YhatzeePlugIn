@@ -1,0 +1,4 @@
+class = app.Ligne
+interface = app.ILigne
+nom = Brelan
+type = brelan

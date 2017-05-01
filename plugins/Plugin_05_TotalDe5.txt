@@ -1,0 +1,4 @@
+class = app.Ligne
+interface = app.ILigne
+nom = Total de 5
+type = total 5

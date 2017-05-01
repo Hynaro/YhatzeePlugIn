@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,7 +29,7 @@ public class Loader {
 			// path to the plugins text files folder
 			File pluginFolder = new File(System.getProperty("user.dir") + File.separator + "plugins");
 			File[] pluginFileList = pluginFolder.listFiles();
-			
+			Arrays.sort(pluginFileList);
 			// browse all the files in the plugins folder
 			for (File file : pluginFileList) {
 				if (file.getName().contains("Plugin_")){

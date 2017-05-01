@@ -88,7 +88,6 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	
 	// add a line to the lines panel
 	public void addLine(ILigne ligne){
-		System.out.println("ligne " + ligne.toString());
 		JButton button = new JButton(ligne.getNom());
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
