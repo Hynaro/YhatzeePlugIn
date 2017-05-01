@@ -1,0 +1,3 @@
+class = tiers.AfficheResultatDes
+nom = "affiche un truc"
+interface = app.IAfficheur

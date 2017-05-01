@@ -13,6 +13,8 @@ public class Run {
 		ArrayList<IDescription> descriptions;
 		l = new Loader();
 		descriptions = l.GetDescriptions();
+		descriptions = l.GetDescFor(IAfficheur.class);
+		System.out.println(descriptions.size());
 		aff = (IAfficheur) l.getPlugin(descriptions.get(0));
 	}
 }

@@ -20,13 +20,7 @@ public class Loader {
 			return ob;
 			}
 		
-		public ArrayList<IDescription> GetDescFor(Class<?> Contrainte) throws IOException{
-			ArrayList<IDescription> listeRetour = new ArrayList<IDescription>();
-			
-			
-			return listeRetour;
-			
-		}
+		
 		
 		public ArrayList<IDescription> GetDescriptions() throws IOException{
 			Properties p = new Properties();
@@ -37,17 +31,31 @@ public class Loader {
 			repo = new File(System.getProperty("user.dir"));
 			fileFound = repo.listFiles();
 			for (File fichier : fileFound) {
-				if (fichier.getName().contains("plugin_")){
+				if (fichier.getName().contains("Plugin_")){
 					p.load(new FileReader(fichier));
 					desc.setClassName(p.getProperty("class"));
 					desc.setConstraint(p.getProperty("interface"));
 					desc.setName(p.getProperty("nom"));
-					p.load(new FileReader(fichier));
 					listeRetour.add(desc);
 				}
 		    }
 			ListeDescriptionsPlugins = listeRetour;
 			return listeRetour;
-		}	
+		}
+		
+		public ArrayList<IDescription> GetDescFor(Class<?> contrainte) throws IOException, ClassNotFoundException{
+			ArrayList<IDescription> listeRetour = new ArrayList<IDescription>();
+			for(IDescription d: ListeDescriptionsPlugins){
+				Class<?> cl = Class.forName(d.getConstraint());
+				try {contrainte.isAssignableFrom(cl);}
+				catch (Exception e){
+					System.out.println("ça marche pas");
+				}
+				System.out.println(cl.getName());
+				listeRetour.add(d);
+			}
+			return listeRetour;
+		}
+
 }
 
