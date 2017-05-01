@@ -15,11 +15,7 @@ public class Jeu {
 	private ArrayList<ILigne> lignes;
 	private IAfficheur afficheur;
 	
-	public Jeu() {
-		this.lignes = new ArrayList<ILigne>();
-		this.score = 0;
-		this.dejaJoue = true; // must be true to roll the dices a first time
-	}
+	public Jeu() {}
 
 	public static Jeu getInstance(){
 		return instance;
@@ -35,8 +31,16 @@ public class Jeu {
 	}
 	
 	public void startGame() throws Exception{
+		this.lignes = new ArrayList<ILigne>();
+		this.score = 0;
+		this.dejaJoue = true; // must be true to roll the dices a first time
+		
 		Loader loader = Loader.getInstance();
 		
+		// Destroy the Afficheur if it exists
+		if(this.afficheur != null){
+			this.afficheur.shutdown();
+		}
 		// Load the Afficheur
 		IDescription descAfficheur = loader.getDescForPlugin(IAfficheur.class).get(0);
 		this.afficheur = (IAfficheur) loader.getPluginForDesc(descAfficheur);
@@ -48,6 +52,7 @@ public class Jeu {
 			this.lignes.add(ligne);
 			this.afficheur.addLine(ligne);
 		}
+		System.out.println("New game started");
 	}
 	
 	public void rollDicesButtonPressed(){

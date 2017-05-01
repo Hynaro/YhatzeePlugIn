@@ -32,8 +32,8 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	private JTextArea scoreTextArea;
 	private JTextArea messageTextArea;
 	private JButton throwDicesButton;
-	private JButton newGame;
-	private JButton addPlayer;
+	private JButton newGameButton;
+	private JButton addPlayerButton;
 	
 	public InterfaceGraphiqueDefault() {
 
@@ -52,8 +52,8 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		this.messageTextArea = new JTextArea("Lancez les des.");
 		this.resultDicesTextArea = new JTextArea();
 		this.throwDicesButton = new JButton("Lancer les des");
-		this.newGame = new JButton("Nouvelle partie");
-		this.addPlayer = new JButton("Ajouter un joueur");
+		this.newGameButton = new JButton("Nouvelle partie");
+		this.addPlayerButton = new JButton("Ajouter un joueur");
 		
 		// edit the display panel
 		this.displayPanel.setLayout(new BoxLayout(this.displayPanel, BoxLayout.PAGE_AXIS));
@@ -69,6 +69,18 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 			}
 		};
 		this.throwDicesButton.addActionListener(rollDicesButtonListener);
+		//edit the new game button
+		ActionListener newGameButtonListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Jeu.getInstance().startGame();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		};
+		this.newGameButton.addActionListener(newGameButtonListener);
 		
 		// add the  elements to the display panel
 		this.displayPanel.add(this.resultDicesTextArea);
@@ -76,14 +88,19 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		this.displayPanel.add(this.messageTextArea);
 		// add the elements to the action panel
 		this.actionsPanel.add(this.throwDicesButton);
-		this.actionsPanel.add(this.newGame);
-		this.actionsPanel.add(this.addPlayer);
+		this.actionsPanel.add(this.newGameButton);
+		this.actionsPanel.add(this.addPlayerButton);
 		// add the elements to the frame
 		this.getContentPane().add(this.displayPanel, BorderLayout.CENTER);
 		this.getContentPane().add(this.linesPanel, BorderLayout.EAST);
 		this.getContentPane().add(this.actionsPanel, BorderLayout.SOUTH);
 		
 		this.setVisible(true);	
+	}
+	
+	// destroy the frame
+	public void shutdown(){
+		this.dispose();
 	}
 	
 	public void setTitre(String titre){
@@ -119,5 +136,7 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		this.linesPanel.add(button);
 		
 	}
+	
+	
 
 }
