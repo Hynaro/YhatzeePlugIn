@@ -105,7 +105,6 @@ public class EvaluateurDefault implements IEvaluateur {
 		else{
 			return 0;
 		}
-		
 	}
 	
 	/**
@@ -114,10 +113,39 @@ public class EvaluateurDefault implements IEvaluateur {
 	 * @return
 	 */
 	public int carre(int[] resultDices){
-		int sumSame = 0;
-		for(int i : resultDices)
-				sumSame += i;
-		return sumSame;
+		HashMap<Integer, Integer> occurences = this.countOccurences(resultDices);
+		int maximumFace = 0;
+		
+		// Get the number of dice's faces
+		Loader l = Loader.getInstance();
+		int nombreDeFaces = 0;
+		try {
+			IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
+			IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
+			nombreDeFaces = jetdeDes.getNombreDeFaces();
+			System.out.println("nbface " + nombreDeFaces);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// find the faces which have at least 3 occurences, and the maximum value
+		for(int i = 1; i <= nombreDeFaces; i++){
+			if(occurences.get(i) >= 4){
+				maximumFace = i;
+			}
+		}
+		
+		if(maximumFace != 0){
+			return maximumFace*4;
+		}
+		else{
+			return 0;
+		}
 	}
 	
 	/**
@@ -126,7 +154,11 @@ public class EvaluateurDefault implements IEvaluateur {
 	 * @return
 	 */
 	public int chance(int[] resultDices){
-		return brelan(resultDices);
+		int sum = 0;
+		for(int i = 0; i < resultDices.length; i++){
+			sum += resultDices[i];
+		}
+		return sum;
 	}
 	
 	/**
@@ -154,11 +186,43 @@ public class EvaluateurDefault implements IEvaluateur {
 	 */
 	public int yams(int[] resultDices){
 		nbYams++;
-		if (nbYams < 1){
-			return 50;	
+		HashMap<Integer, Integer> occurences = this.countOccurences(resultDices);
+		int maximumFace = 0;
+		
+		// Get the number of dice's faces
+		Loader l = Loader.getInstance();
+		int nombreDeFaces = 0;
+		try {
+			IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
+			IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
+			nombreDeFaces = jetdeDes.getNombreDeFaces();
+			System.out.println("nbface " + nombreDeFaces);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// find the faces which have at least 3 occurences, and the maximum value
+		for(int i = 1; i <= nombreDeFaces; i++){
+			if(occurences.get(i) >= 5){
+				maximumFace = i;
+			}
+		}
+		
+		if(maximumFace != 0){
+			if (nbYams < 1){
+				return 50;	
+			}
+			else{
+				return 100;
+			}
 		}
 		else{
-			return 100;
+			return 0;
 		}
 	}
 	
