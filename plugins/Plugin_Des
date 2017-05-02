@@ -1,3 +1,4 @@
 class = tiers.JetDeDesDefault
 interface = app.IJetDeDes
 nombreDeDes = 5
+nombreDeFaces = 6

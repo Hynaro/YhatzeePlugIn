@@ -2,6 +2,7 @@ package app;
 
 public interface IJetDeDes {
 	
+	public int getNombreDeDes();
 	/**
 	 * Set the number of dices that is used in the game
 	 * @param nombreDeDes
@@ -11,6 +12,7 @@ public interface IJetDeDes {
 	 * Set the number of faces of the each dices
 	 * @param nombreDeFaces
 	 */
+	public int getNombreDeFaces();
 	public void setNombreDeFaces(int nombreDeFaces);
 	/**
 	 * Generate random integers between 1 and the maximum dice's faces, for the number of dices in the game

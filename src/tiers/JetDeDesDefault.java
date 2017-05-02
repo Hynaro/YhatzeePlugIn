@@ -34,7 +34,7 @@ public class JetDeDesDefault implements IJetDeDes{
 		int[] jet = new int[this.nombreDeDes];
 		Random rand = new Random();
 		for (int i = 0 ; i < jet.length ; i++){
-			jet[i] = rand.nextInt(6) + 1;
+			jet[i] = rand.nextInt(this.nombreDeFaces) + 1;
 		}
 		return jet;
 	}
