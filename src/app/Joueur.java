@@ -1,5 +1,6 @@
 package app;
 
+// NOT IMPLEMENTED
 public class Joueur implements IJoueur {
 	
 	String nom;

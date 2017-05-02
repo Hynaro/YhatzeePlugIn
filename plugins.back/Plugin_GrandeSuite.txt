@@ -1,3 +1,0 @@
-class = app.Ligne
-nom = "Grande Suite"
-interface = app.ILigne

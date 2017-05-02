@@ -1,3 +1,0 @@
-class = tiers.InterfaceGraphique
-interface = app.IAfficheur
-titre = Yhatzee !!!

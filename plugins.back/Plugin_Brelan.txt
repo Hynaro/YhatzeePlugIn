@@ -1,3 +1,0 @@
-class = app.Ligne
-nom = "Brelan: total des 5 dès"
-interface = app.ILigne
