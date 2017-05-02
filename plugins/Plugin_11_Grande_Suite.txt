@@ -1,4 +1,4 @@
 class = app.Ligne
 interface = app.ILigne
 nom = Grande Suite
-type = grande suite
+type = grandeSuite
