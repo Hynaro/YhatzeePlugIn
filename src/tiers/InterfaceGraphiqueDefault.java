@@ -20,7 +20,6 @@ import app.IEvaluateur;
 import app.ILigne;
 import app.Jeu;
 
-@SuppressWarnings("serial")
 public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	
 	private String titre;
@@ -35,6 +34,10 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 	private JButton newGameButton;
 	private JButton addPlayerButton;
 	
+	
+	/**
+	 * Create the GUI, the components and their listeners
+	 */
 	public InterfaceGraphiqueDefault() {
 
 		// editing the frame
@@ -98,7 +101,7 @@ public class InterfaceGraphiqueDefault extends JFrame implements IAfficheur {
 		this.setVisible(true);	
 	}
 	
-	// destroy the frame
+	
 	public void shutdown(){
 		this.dispose();
 	}

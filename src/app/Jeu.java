@@ -14,6 +14,7 @@ public class Jeu {
 	private boolean dejaJoue;
 	private ArrayList<ILigne> lignes;
 	private IAfficheur afficheur;
+	private int tour;
 	
 	public Jeu() {}
 
@@ -30,9 +31,14 @@ public class Jeu {
 		}
 	}
 	
+	/** 
+	 * Start the game, and load the plugin
+	 * @throws Exception
+	 */
 	public void startGame() throws Exception{
 		this.lignes = new ArrayList<ILigne>();
 		this.score = 0;
+		this.tour = 0;
 		this.dejaJoue = true; // must be true to roll the dices a first time
 		
 		Loader loader = Loader.getInstance();
@@ -55,6 +61,9 @@ public class Jeu {
 		System.out.println("New game started");
 	}
 	
+	/**
+	 * Save the result of the roll of dice, and display in the GUI. Check if the dices has not already been rolled, otherwise it displays an error message in the GUI.
+	 */
 	public void rollDicesButtonPressed(){
 		if(this.dejaJoue == true){			
 			// record the player has to play
@@ -66,7 +75,6 @@ public class Jeu {
 			try {
 				IDescription descJetDeDes = l.getDescForPlugin(IJetDeDes.class).get(0);
 				IJetDeDes jetdeDes = (IJetDeDes) l.getPluginForDesc(descJetDeDes);
-//			System.out.println("Jet de des : " + jetdeDes.jeter()[0]);
 				this.resultatDes = jetdeDes.jeter();
 				
 			} catch (IOException e) {
@@ -85,6 +93,10 @@ public class Jeu {
 		}
 	}
 	
+	/**
+	 * Calculate the score depending of the results of the dices and the chosen line
+	 * @param ligne, the chosen line
+	 */
 	public void lineButtonPressed(ILigne ligne){
 		// check that the player hasn't already played the round
 		if(dejaJoue == false){			
@@ -108,6 +120,13 @@ public class Jeu {
 					// updating the view
 					this.afficheur.setAffichageScore(this.score);
 					this.afficheur.setAffichageMessage("Vous avez marque : " + points + " points.");
+					// increment the round, and check if it was the last
+					this.tour++;
+					if(this.tour >= this.lignes.size())
+						this.afficheur.setAffichageMessage(	
+								"Vous avez marque : " + points + " points.\n" + 
+								"Vous avew termine la partie, votre score est de " + this.score + " points."
+						);
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -130,7 +149,12 @@ public class Jeu {
 		}
 	}
 	
-	// Check if the specified ligne form the lignes array, is checked
+	/**
+	 * Find the line in the array and check if it is checked
+	 * @param ligne 
+	 * @param lignes
+	 * @return
+	 */
 	public boolean isLigneCoche(ILigne ligne, ArrayList<ILigne> lignes){
 		for(ILigne l : lignes)
 			// the type is used to identify the Ligne
@@ -141,7 +165,11 @@ public class Jeu {
 		return false;
 	}
 	
-	// Check or uncheck the Ligne from this.lignes
+	/**
+	 * Check or uncheck the line.
+	 * @param ligne
+	 * @param value
+	 */
 	public void cocheLigne(ILigne ligne, boolean value){
 		int index = this.lignes.indexOf(ligne);
 		this.lignes.get(index).setCoche(value);
